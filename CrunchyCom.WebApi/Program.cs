@@ -1,6 +1,19 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200") // Your Angular frontend URL
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
+
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -13,6 +26,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Add Cors middleware
+// app.UseCors(policy => policy
+//     .WithOrigins("http://localhost:4200")
+//     .AllowAnyMethod()
+//     .AllowAnyHeader());
 
 var summaries = new[]
 {
