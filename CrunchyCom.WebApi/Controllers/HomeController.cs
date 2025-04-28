@@ -7,6 +7,7 @@ namespace CrunchyCom.WebApi.Controllers;
 public class HomeController : ControllerBase
 {
     // GET
+    [HttpGet]
     public IActionResult Index()
     {
         return Ok();

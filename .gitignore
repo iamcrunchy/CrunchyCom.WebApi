@@ -1,5 +1,50 @@
 bin/
 obj/
 /packages/
-riderModule.iml
 /_ReSharper.Caches/
+
+# Rider
+.idea/
+*.iml
+out/
+
+# WebStorm
+node_modules/
+package-lock.json
+npm-debug.log*
+dist/
+
+# .NET 9 and C#
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+.vscode/
+.vs/
+TestResults/
+appsettings*.json
+
+# General
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+*.swp
+
+# ASP.NET Core Cache
+bin/
+obj/
+*.cache
+*.lru
+*.xml.cache
+
+# Rider Cache Files
+.idea/
+*.iml
+
+# General Temporary/Cache Files
+.cache/
+logs/
+.DS_Store
+Thumbs.db
