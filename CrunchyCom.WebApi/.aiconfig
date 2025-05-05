@@ -1,0 +1,127 @@
+{
+  "project": {
+    "name": "CrunchyCom",
+    "description": "CrunchyCom .NET 9 backend API service",
+    "structure": {
+      "framework": ".NET 9",
+      "ide": "Rider",
+      "projects": [
+        {
+          "name": "CrunchyCom.Data",
+          "description": "Data access layer including models, context, and migrations",
+          "responsibilities": [
+            "Database models and entity definitions",
+            "DbContext configuration",
+            "Repository interfaces and implementations",
+            "Database migrations"
+          ]
+        },
+        {
+          "name": "CrunchyCom.Business",
+          "description": "Business logic and service layer",
+          "responsibilities": [
+            "Business rules and validation",
+            "Service implementations",
+            "Orchestration between data access and API"
+          ]
+        },
+        {
+          "name": "CrunchyCom.WebAPI",
+          "description": "RESTful API endpoints and controllers",
+          "responsibilities": [
+            "API controllers and endpoints",
+            "Request/response handling",
+            "Authentication/authorization",
+            "API documentation"
+          ]
+        }
+      ]
+    },
+    "domainEntities": [
+      {
+        "name": "User",
+        "description": "Represents a user in the system"
+      },
+      {
+        "name": "Product",
+        "description": "Represents a product available for purchase"
+      },
+      {
+        "name": "Order",
+        "description": "Represents a customer order"
+      }
+    ]
+  },
+  "instructions": {
+    "general": "When suggesting code, maintain consistency with existing patterns in the codebase.",
+    "architecture": {
+      "pattern": "Three-tier architecture with separate projects for Data, Business, and API layers",
+      "principles": [
+        "Repository pattern for data access",
+        "Service pattern for business logic",
+        "Dependency injection for service resolution",
+        "Clean separation of concerns between layers"
+      ]
+    },
+    "fileNaming": {
+      "models": "PascalCase singular (e.g., User.cs)",
+      "interfaces": "Start with 'I' followed by implementation name (e.g., IRepository.cs)",
+      "services": "PascalCase with 'Service' suffix (e.g., UserService.cs)",
+      "controllers": "PascalCase with 'Controller' suffix (e.g., UserController.cs)"
+    },
+    "codeStructure": {
+      "models": "POCO classes with properties matching database schema",
+      "controllers": "RESTful resource controllers with standard CRUD operations",
+      "services": "Business logic with validation and orchestration"
+    },
+    "api": {
+      "communication": "RESTful API endpoints with proper HTTP methods",
+      "responseFormat": "Standard JSON responses with consistent structure",
+      "endpoints": [
+        "/api/users - User management",
+        "/api/products - Product catalog operations",
+        "/api/orders - Order processing"
+      ],
+      "conventions": {
+        "getAll": "GET /api/{resource}",
+        "getById": "GET /api/{resource}/{id}",
+        "create": "POST /api/{resource}",
+        "update": "PUT /api/{resource}/{id}",
+        "delete": "DELETE /api/{resource}/{id}"
+      }
+    },
+    "dataAccess": {
+      "orm": "Latest stable Entity Framework Core for .NET 9",
+      "database": "Planning to use SQL Server (or SQLite for smaller scope)",
+      "migrations": "Use EF Core migrations for database schema changes",
+      "repositories": "Implement repository pattern for data access abstraction",
+      "status": "Database integration planned but not yet implemented"
+    },
+    "securityConsiderations": {
+      "authentication": "Implement JWT-based authentication",
+      "authorization": "Role-based access control",
+      "dataValidation": "Validate all incoming requests",
+      "errorHandling": "Use global exception handling middleware"
+    }
+  },
+  "codeGeneration": {
+    "templates": {
+      "controller": {
+        "description": "Standard REST controller template",
+        "endpoints": ["Get", "GetById", "Create", "Update", "Delete"]
+      },
+      "service": {
+        "description": "Business service with CRUD operations",
+        "methods": ["GetAll", "GetById", "Create", "Update", "Delete"]
+      },
+      "repository": {
+        "description": "Data repository implementation",
+        "methods": ["GetAll", "GetById", "Add", "Update", "Delete"]
+      },
+      "model": {
+        "description": "POCO entity model",
+        "components": ["Properties", "Relationships", "Validations"]
+      }
+    }
+  }
+}

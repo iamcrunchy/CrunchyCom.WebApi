@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrunchyCom.WebApi", "CrunchyCom.WebApi\CrunchyCom.WebApi.csproj", "{0632EEB3-D28B-4E60-8E3F-DA604CBD75D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrunchyCom.Data", "CrunchyCom.Data\CrunchyCom.Data.csproj", "{4DA75DFF-99A5-458B-AF1A-E9E6B15F8D84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrunchyCom.Business", "CrunchyCom.Business\CrunchyCom.Business.csproj", "{6EA65E45-1578-48AC-91FC-DF0E42F6C1C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{0632EEB3-D28B-4E60-8E3F-DA604CBD75D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0632EEB3-D28B-4E60-8E3F-DA604CBD75D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0632EEB3-D28B-4E60-8E3F-DA604CBD75D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DA75DFF-99A5-458B-AF1A-E9E6B15F8D84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DA75DFF-99A5-458B-AF1A-E9E6B15F8D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DA75DFF-99A5-458B-AF1A-E9E6B15F8D84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DA75DFF-99A5-458B-AF1A-E9E6B15F8D84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EA65E45-1578-48AC-91FC-DF0E42F6C1C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EA65E45-1578-48AC-91FC-DF0E42F6C1C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EA65E45-1578-48AC-91FC-DF0E42F6C1C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EA65E45-1578-48AC-91FC-DF0E42F6C1C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

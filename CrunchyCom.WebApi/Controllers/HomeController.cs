@@ -23,7 +23,8 @@ public class HomeController : ControllerBase
 
         try
         {
-            var mdPath = "E:\\Mobile Forensics Development\\Module 1 - Introduction to Mobile Forensics.md";
+            var mdPath = @"E:\Mobile Forensics Development\MobileFoensics.md";
+           // var mdPath = "\"E:\\Mobile Forensics Development\\MobileFoensics.md\"";
             var markdownContent = System.IO.File.ReadAllText(mdPath);
             var htmlContent = Markdig.Markdown.ToHtml(markdownContent);
         
