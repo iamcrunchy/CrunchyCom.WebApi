@@ -1,13 +1,18 @@
 namespace CrunchyCom.Data.Models;
 
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 public class Post
 {
-    public int Id { get; set; }
-    public string? Title { get; set; }
-    public string? Description { get; set; }
-    public string? Body { get; set; }
-    public string? Author { get; set; }
-    public string? PublishedDate { get; set; }
-    public string? ModifiedDate { get; set; }
-    public IEnumerable<string>? Tags { get; set; }
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; } = null!;
+    public string Title { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public string Body { get; set; } = null!;
+    public string Author { get; set; } = null!;
+    public DateTime PublishedDate { get; set; }
+    public DateTime ModifiedDate { get; set; } 
+    public IEnumerable<string> Tags { get; set; } = null!;
 }

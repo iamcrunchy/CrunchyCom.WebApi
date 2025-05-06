@@ -19,7 +19,7 @@ public class UserController : ControllerBase
     public IActionResult GetAllUsers() => Ok(_userService.GetAllUsers());
 
     [HttpGet("{id}")]
-    public IActionResult GetUserById(int id)
+    public IActionResult GetUserById(string id)
     {
         var user = _userService.GetUserById(id);
         return user != null ? Ok(user) : NotFound();
@@ -33,7 +33,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateUser(int id, [FromBody] User user)
+    public IActionResult UpdateUser(string id, [FromBody] User user)
     {
         if (id != user.Id) return BadRequest();
         _userService.UpdateUser(user);
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteUser(int id)
+    public IActionResult DeleteUser(string id)
     {
         _userService.DeleteUser(id);
         return NoContent();

@@ -8,7 +8,7 @@ public class UserRepository : IRepository<User>
 
     public IEnumerable<User> GetAll() => _users;
 
-    public User GetById(int id) => _users.FirstOrDefault(u => u.Id == id)!;
+    public User GetById(string id) => _users.FirstOrDefault(u => u.Id == id)!;
 
     public void Add(User entity) => _users.Add(entity);
 
@@ -22,5 +22,5 @@ public class UserRepository : IRepository<User>
         }
     }
 
-    public void Delete(int id) => _users.RemoveAll(u => u.Id == id);
+    public void Delete(string id) => _users.RemoveAll(u => u.Id == id);
 }

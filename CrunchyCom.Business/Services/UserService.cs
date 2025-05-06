@@ -14,11 +14,11 @@ public class UserService : IUserService
 
     public IEnumerable<User> GetAllUsers() => _userRepository.GetAll();
 
-    public User GetUserById(int id) => _userRepository.GetById(id);
+    public User GetUserById(string id) => _userRepository.GetById(id);
 
     public void CreateUser(User user) => _userRepository.Add(user);
 
     public void UpdateUser(User user) => _userRepository.Update(user);
 
-    public void DeleteUser(int id) => _userRepository.Delete(id);
+    public void DeleteUser(string id) => _userRepository.Delete(id);
 }

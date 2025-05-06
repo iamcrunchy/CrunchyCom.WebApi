@@ -19,7 +19,7 @@ public class PostController : ControllerBase
     public IActionResult GetAllPosts() => Ok(_postService.GetAllPosts());
 
     [HttpGet("{id}")]
-    public IActionResult GetPostById(int id)
+    public IActionResult GetPostById(string id)
     {
         var post = _postService.GetPostById(id);
         return post != null ? Ok(post) : NotFound();
@@ -33,7 +33,7 @@ public class PostController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdatePost(int id, [FromBody] Post post)
+    public IActionResult UpdatePost(string id, [FromBody] Post post)
     {
         if (id != post.Id) return BadRequest();
         _postService.UpdatePost(post);
@@ -41,7 +41,7 @@ public class PostController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeletePost(int id)
+    public IActionResult DeletePost(string id)
     {
         _postService.DeletePost(id);
         return NoContent();

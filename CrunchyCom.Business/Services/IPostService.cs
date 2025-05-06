@@ -4,8 +4,8 @@ using CrunchyCom.Data.Models;
 public interface IPostService
 {
     IEnumerable<Post> GetAllPosts();
-    Post? GetPostById(int id);
+    Post? GetPostById(string id);
     void CreatePost(Post post);
     void UpdatePost(Post post);
-    void DeletePost(int id);
+    void DeletePost(string id);
 }

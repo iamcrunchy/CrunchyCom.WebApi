@@ -14,11 +14,11 @@ public class PostService : IPostService
 
     public IEnumerable<Post> GetAllPosts() => _postRepository.GetAll();
 
-    public Post? GetPostById(int id) => _postRepository.GetById(id);
+    public Post? GetPostById(string id) => _postRepository.GetById(id);
 
     public void CreatePost(Post post) => _postRepository.Add(post);
 
     public void UpdatePost(Post post) => _postRepository.Update(post);
 
-    public void DeletePost(int id) => _postRepository.Delete(id);
+    public void DeletePost(string id) => _postRepository.Delete(id);
 }

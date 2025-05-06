@@ -5,8 +5,8 @@ namespace CrunchyCom.Business.Services;
 public interface IUserService
 {
     IEnumerable<User> GetAllUsers();
-    User GetUserById(int id);
+    User GetUserById(string id);
     void CreateUser(User user);
     void UpdateUser(User user);
-    void DeleteUser(int id);
+    void DeleteUser(string id);
 }
