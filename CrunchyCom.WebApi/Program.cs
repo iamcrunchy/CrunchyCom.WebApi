@@ -37,11 +37,14 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors("AllowFrontend");
-app.UseRouting();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+
+// using top-level statements instead of UseRouting() and UseEndpoints()
+app.MapControllers();
+// app.UseRouting();
+// app.UseEndpoints(endpoints =>
+// {
+//     endpoints.MapControllers();
+// });
 
 
 // Add Cors middleware
