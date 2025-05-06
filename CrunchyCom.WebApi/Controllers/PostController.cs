@@ -1,5 +1,6 @@
 using CrunchyCom.Business.Services;
 using CrunchyCom.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrunchyCom.WebApi.Controllers;
@@ -25,6 +26,7 @@ public class PostController : ControllerBase
         return post != null ? Ok(post) : NotFound();
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult CreatePost([FromBody] Post post)
     {
@@ -32,6 +34,7 @@ public class PostController : ControllerBase
         return CreatedAtAction(nameof(GetPostById), new { id = post.Id }, post);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public IActionResult UpdatePost(string id, [FromBody] Post post)
     {
@@ -40,6 +43,7 @@ public class PostController : ControllerBase
         return NoContent();
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public IActionResult DeletePost(string id)
     {
