@@ -14,9 +14,13 @@ public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;
     private readonly UserRepository _userRepository;
+    private readonly ILogger<AuthController> _logger;
     
-    public AuthController(IConfiguration configuration, UserRepository userRepository)
+    public AuthController(IConfiguration configuration, 
+        UserRepository userRepository, 
+        ILogger<AuthController> logger)
     {
+        _logger = logger;
         _configuration = configuration;
         _userRepository = userRepository;
     }
@@ -40,9 +44,20 @@ public class AuthController : ControllerBase
         return Ok(new { Token = token });
     }
 
+    /// <summary>
+    /// Generates a JSON Web Token (JWT) for a given username.
+    /// </summary>
+    /// <param name="username">The username for which the JWT is generated.</param>
+    /// <returns>A string representation of the generated JWT.</returns>
     private string GenerateJwtToken(string username)
     {
         var secret = _configuration["JwtSettings:Secret"];
+        if (secret == null)
+        {
+            _logger.LogError("JWT secret is not configured.");
+            throw new InvalidOperationException("JWT secret is not configured.");
+        }
+        
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

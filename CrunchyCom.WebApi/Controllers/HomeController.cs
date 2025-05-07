@@ -6,6 +6,14 @@ namespace CrunchyCom.WebApi.Controllers;
 [Route("[controller]")]
 public class HomeController : ControllerBase
 {
+    private readonly ILogger<HomeController> _logger;
+
+    public HomeController(ILogger<HomeController> logger)
+    {
+        _logger = logger;
+    }
+
+
     // GET
     [HttpGet]
     public IActionResult Index()
@@ -43,10 +51,12 @@ public class HomeController : ControllerBase
         }
         catch (FileNotFoundException fnf)
         {
+            _logger.LogError("Could not find the file: {FileName}", fnf.FileName);
             return NotFound("The requested Markdown file was not found.");
         }
         catch(IOException ioe)
         {
+            _logger.LogError("Encountered an IO error: {Message}", ioe.Message);
             return StatusCode(500, "An error occurred while reading the file.");
         }
         catch (Exception ex)

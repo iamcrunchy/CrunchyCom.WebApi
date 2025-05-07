@@ -1,5 +1,6 @@
 using CrunchyCom.Data.Config;
 using CrunchyCom.Data.Models;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace CrunchyCom.Data.Repositories;
@@ -7,9 +8,9 @@ namespace CrunchyCom.Data.Repositories;
 public class UserRepository : MongoRepository<User>
 {
     private readonly IMongoCollection<User> _collection;
-
-    public UserRepository(MongoDbSettings settings)
-        : base(settings, settings.UsersCollection)
+    
+    public UserRepository(MongoDbSettings settings, ILogger<UserRepository> logger)
+        : base(settings, settings.UsersCollection, logger)
     {
         var client = new MongoClient(settings.ConnectionString);
         var database = client.GetDatabase(settings.DatabaseName);
