@@ -36,12 +36,12 @@ builder.Services.AddAuthentication(options =>
             ValidAudience = jwtSettings.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
         };
-    })
-    .AddGoogle(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
     });
+    // .AddGoogle(options =>
+    // {
+    //     options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+    //     options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+    // });
     
     
 builder.Services.AddAuthorization();
@@ -65,10 +65,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// add authentication and authorization middleware
-app.UseAuthentication();
-app.UseAuthorization();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -83,6 +79,7 @@ app.UseSwaggerUI();
 
 app.UseCors("AllowFrontend");
 
+// add authentication and authorization middleware
 app.UseAuthentication();
 app.UseAuthorization();
 

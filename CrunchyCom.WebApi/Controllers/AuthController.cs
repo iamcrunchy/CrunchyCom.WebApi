@@ -1,0 +1,58 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using CrunchyCom.Data.Repositories;
+using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+
+namespace CrunchyCom.WebApi.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AuthController : ControllerBase
+{
+    private readonly IConfiguration _configuration;
+    private readonly UserRepository _userRepository;
+    
+    public AuthController(IConfiguration configuration, UserRepository userRepository)
+    {
+        _configuration = configuration;
+        _userRepository = userRepository;
+    }
+
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] LoginRequest request)
+    {
+        var user = _userRepository.GetByUserName("admin");
+
+        if (user == null)
+        {
+            return Unauthorized();
+        }
+        
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+        {
+            return Unauthorized();
+        }
+
+        var token = GenerateJwtToken(user.UserName);
+        return Ok(new { Token = token });
+    }
+
+    private string GenerateJwtToken(string username)
+    {
+        var secret = _configuration["JwtSettings:Secret"];
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            issuer: _configuration["JwtSettings:Issuer"],
+            audience: _configuration["JwtSettings:Audience"],
+            claims: new[] { new Claim(ClaimTypes.Name, username) },
+            expires: DateTime.Now.AddDays(1),
+            signingCredentials: creds);
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+}
