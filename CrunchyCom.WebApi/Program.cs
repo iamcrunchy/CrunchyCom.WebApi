@@ -51,10 +51,12 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 
 // Register repositories
 builder.Services.AddScoped<IRepository<Post>, PostRepository>();
+builder.Services.AddScoped<IRepository<User>, UserRepository>();
+builder.Services.AddScoped<UserRepository>();
 
 // Register services
 builder.Services.AddScoped<IPostService, PostService>();
-
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Configure JWT authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings")

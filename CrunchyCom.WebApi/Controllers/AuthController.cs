@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using CrunchyCom.Data.Models;
 using CrunchyCom.Data.Repositories;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -26,9 +27,9 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var user = _userRepository.GetByUserName("admin");
+        var user = await _userRepository.GetByUserNameAsync("admin");
 
         if (user == null) return Unauthorized();
 
@@ -36,6 +37,35 @@ public class AuthController : ControllerBase
 
         var token = GenerateJwtToken(user.UserName);
         return Ok(new { Token = token });
+    }
+
+    [HttpPost("register-admin")]
+    public async Task<IActionResult> RegisterAdmin([FromBody] RegisterRequest request)
+    {
+        // Check if admin already exists
+        var existingUser = await _userRepository.GetByUserNameAsync(request.Username);
+        if (existingUser != null)
+            return BadRequest("Username already exists");
+
+        // Hash password with BCrypt
+        string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+
+        var user = new User
+        {
+            UserName = request.Username,
+            PasswordHash = passwordHash,
+            Roles = ["Admin"],
+            CreatedAt = DateTime.UtcNow
+        };
+
+        await _userRepository.CreateAsync(user);
+        return Ok("Admin user created successfully");
+    }
+
+    public class RegisterRequest
+    {
+        public string Username { get; set; } = null!;
+        public string Password { get; set; } = null!;
     }
 
     /// <summary>
@@ -64,4 +94,10 @@ public class AuthController : ControllerBase
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+}
+
+public class RegisterRequest
+{
+    public string Username { get; set; } = null!;
+    public string Password { get; set; } = null!;
 }
