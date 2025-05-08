@@ -8,7 +8,7 @@ namespace CrunchyCom.Data.Repositories;
 public class UserRepository : MongoRepository<User>
 {
     private readonly IMongoCollection<User> _collection;
-    
+
     public UserRepository(MongoDbSettings settings, ILogger<UserRepository> logger)
         : base(settings, settings.UsersCollection, logger)
     {
@@ -19,10 +19,10 @@ public class UserRepository : MongoRepository<User>
 
     public User? GetByUserName(string userName)
     {
-        var filter = Builders<User>.Filter.Eq(u => u.UserName,userName);
+        var filter = Builders<User>.Filter.Eq(u => u.UserName, userName);
         return _collection.Find(filter).FirstOrDefault();
     }
-    
+
     // public void Update(User entity)
     // {
     //     var user = GetById(entity.Id);

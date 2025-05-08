@@ -12,13 +12,28 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public IEnumerable<User> GetAllUsers() => _userRepository.GetAll();
+    public IEnumerable<User> GetAllUsers()
+    {
+        return _userRepository.GetAll();
+    }
 
-    public User GetUserById(string id) => _userRepository.GetById(id);
+    public User GetUserById(string id)
+    {
+        return _userRepository.GetById(id);
+    }
 
-    public void CreateUser(User user) => _userRepository.Add(user);
+    public void CreateUser(User user)
+    {
+        _userRepository.Add(user);
+    }
 
-    public void UpdateUser(User user) => _userRepository.Update(user);
+    public void UpdateUser(User user)
+    {
+        _userRepository.Update(user);
+    }
 
-    public void DeleteUser(string id) => _userRepository.Delete(id);
+    public void DeleteUser(string id)
+    {
+        _userRepository.Delete(id);
+    }
 }

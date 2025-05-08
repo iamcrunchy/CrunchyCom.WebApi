@@ -5,23 +5,25 @@ using MongoDB.Driver;
 namespace CrunchyCom.Data.Repositories;
 
 /// <summary>
-/// Provides a repository implementation for MongoDB, using a specified model type and collection.
+///     Provides a repository implementation for MongoDB, using a specified model type and collection.
 /// </summary>
-/// <typeparam name="T">The type of the objects to be stored and retrieved in the MongoDB collection.
-/// Must be a reference type.</typeparam>
+/// <typeparam name="T">
+///     The type of the objects to be stored and retrieved in the MongoDB collection.
+///     Must be a reference type.
+/// </typeparam>
 public class MongoRepository<T> : IRepository<T> where T : class
 {
     private readonly IMongoCollection<T> _collection;
     private readonly ILogger<MongoRepository<T>> _logger;
 
     /// <summary>
-    /// Represents a generic repository implementation for storing, retrieving,
-    /// updating, and deleting entities in a MongoDB collection.
+    ///     Represents a generic repository implementation for storing, retrieving,
+    ///     updating, and deleting entities in a MongoDB collection.
     /// </summary>
     /// <typeparam name="T">
-    /// The type of the entities managed by the repository. Must be a reference type.
+    ///     The type of the entities managed by the repository. Must be a reference type.
     /// </typeparam>
-    public MongoRepository(MongoDbSettings database, 
+    public MongoRepository(MongoDbSettings database,
         string collectionName,
         ILogger<MongoRepository<T>> logger)
     {
@@ -32,21 +34,24 @@ public class MongoRepository<T> : IRepository<T> where T : class
     }
 
     /// <summary>
-    /// Retrieves all entities from the MongoDB collection.
+    ///     Retrieves all entities from the MongoDB collection.
     /// </summary>
     /// <returns>
-    /// An enumerable collection of entities of type T from the MongoDB collection.
+    ///     An enumerable collection of entities of type T from the MongoDB collection.
     /// </returns>
-    public IEnumerable<T> GetAll() => _collection.Find(_ => true).ToList();
+    public IEnumerable<T> GetAll()
+    {
+        return _collection.Find(_ => true).ToList();
+    }
 
     /// <summary>
-    /// Retrieves an entity from the MongoDB collection based on its unique identifier.
+    ///     Retrieves an entity from the MongoDB collection based on its unique identifier.
     /// </summary>
     /// <param name="id">
-    /// The unique identifier of the entity to retrieve.
+    ///     The unique identifier of the entity to retrieve.
     /// </param>
     /// <returns>
-    /// The entity of type T with the specified identifier, or null if no entity is found.
+    ///     The entity of type T with the specified identifier, or null if no entity is found.
     /// </returns>
     public T GetById(string id)
     {
@@ -55,20 +60,23 @@ public class MongoRepository<T> : IRepository<T> where T : class
     }
 
     /// <summary>
-    /// Adds a new entity of type T to the MongoDB collection.
+    ///     Adds a new entity of type T to the MongoDB collection.
     /// </summary>
     /// <param name="entity">
-    /// The entity of type T to be added to the collection. Must not be null.
+    ///     The entity of type T to be added to the collection. Must not be null.
     /// </param>
-    public void Add(T entity) => _collection.InsertOne(entity);
+    public void Add(T entity)
+    {
+        _collection.InsertOne(entity);
+    }
 
     /// <summary>
-    /// Updates an existing entity in the MongoDB collection by replacing it with a new entity.
-    /// The method identifies the entity to update using the "Id" property of the provided entity.
+    ///     Updates an existing entity in the MongoDB collection by replacing it with a new entity.
+    ///     The method identifies the entity to update using the "Id" property of the provided entity.
     /// </summary>
     /// <param name="entity">
-    /// The entity to update in the MongoDB collection. The entity must have an "Id"
-    /// property used to locate the corresponding entity in the database.
+    ///     The entity to update in the MongoDB collection. The entity must have an "Id"
+    ///     property used to locate the corresponding entity in the database.
     /// </param>
     public void Update(T entity)
     {
@@ -78,10 +86,10 @@ public class MongoRepository<T> : IRepository<T> where T : class
     }
 
     /// <summary>
-    /// Deletes an entity from the MongoDB collection based on the specified unique identifier.
+    ///     Deletes an entity from the MongoDB collection based on the specified unique identifier.
     /// </summary>
     /// <param name="id">
-    /// The unique identifier of the entity to be deleted from the MongoDB collection.
+    ///     The unique identifier of the entity to be deleted from the MongoDB collection.
     /// </param>
     public void Delete(string id)
     {

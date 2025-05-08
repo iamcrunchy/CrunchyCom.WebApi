@@ -13,11 +13,11 @@ namespace CrunchyCom.WebApi.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;
-    private readonly UserRepository _userRepository;
     private readonly ILogger<AuthController> _logger;
-    
-    public AuthController(IConfiguration configuration, 
-        UserRepository userRepository, 
+    private readonly UserRepository _userRepository;
+
+    public AuthController(IConfiguration configuration,
+        UserRepository userRepository,
         ILogger<AuthController> logger)
     {
         _logger = logger;
@@ -30,22 +30,16 @@ public class AuthController : ControllerBase
     {
         var user = _userRepository.GetByUserName("admin");
 
-        if (user == null)
-        {
-            return Unauthorized();
-        }
-        
-        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-        {
-            return Unauthorized();
-        }
+        if (user == null) return Unauthorized();
+
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash)) return Unauthorized();
 
         var token = GenerateJwtToken(user.UserName);
         return Ok(new { Token = token });
     }
 
     /// <summary>
-    /// Generates a JSON Web Token (JWT) for a given username.
+    ///     Generates a JSON Web Token (JWT) for a given username.
     /// </summary>
     /// <param name="username">The username for which the JWT is generated.</param>
     /// <returns>A string representation of the generated JWT.</returns>
@@ -57,14 +51,14 @@ public class AuthController : ControllerBase
             _logger.LogError("JWT secret is not configured.");
             throw new InvalidOperationException("JWT secret is not configured.");
         }
-        
+
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            issuer: _configuration["JwtSettings:Issuer"],
-            audience: _configuration["JwtSettings:Audience"],
-            claims: new[] { new Claim(ClaimTypes.Name, username) },
+            _configuration["JwtSettings:Issuer"],
+            _configuration["JwtSettings:Audience"],
+            new[] { new Claim(ClaimTypes.Name, username) },
             expires: DateTime.Now.AddDays(1),
             signingCredentials: creds);
 

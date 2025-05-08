@@ -16,7 +16,10 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllUsers() => Ok(_userService.GetAllUsers());
+    public IActionResult GetAllUsers()
+    {
+        return Ok(_userService.GetAllUsers());
+    }
 
     [HttpGet("{id}")]
     public IActionResult GetUserById(string id)

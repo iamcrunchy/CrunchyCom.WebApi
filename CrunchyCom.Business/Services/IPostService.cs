@@ -1,6 +1,7 @@
+using CrunchyCom.Data.Models;
+
 namespace CrunchyCom.Business.Services;
 
-using CrunchyCom.Data.Models;
 public interface IPostService
 {
     IEnumerable<Post> GetAllPosts();

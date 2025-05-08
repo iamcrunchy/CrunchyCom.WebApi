@@ -6,8 +6,8 @@ namespace CrunchyCom.Business.Services;
 
 public class PostService : IPostService
 {
-    private readonly IRepository<Post> _postRepository;
     private readonly ILogger<PostService> _logger;
+    private readonly IRepository<Post> _postRepository;
 
     public PostService(IRepository<Post> postRepository, ILogger<PostService> logger)
     {
@@ -19,8 +19,8 @@ public class PostService : IPostService
     /// Logs the process of retrieving posts and handles any exceptions
     /// that may occur during the operation.
     /// <returns>
-    /// A collection of all posts available in the data repository as an IEnumerable of Post objects.
-    /// If no posts are available, an empty collection is returned.
+    ///     A collection of all posts available in the data repository as an IEnumerable of Post objects.
+    ///     If no posts are available, an empty collection is returned.
     /// </returns>
     public IEnumerable<Post> GetAllPosts() //=> _postRepository.GetAll();
     {
@@ -43,11 +43,11 @@ public class PostService : IPostService
     /// Logs the process of retrieving the specified post and handles any exceptions
     /// that may occur during the operation.
     /// <param name="id">
-    /// The unique identifier of the post to retrieve.
+    ///     The unique identifier of the post to retrieve.
     /// </param>
     /// <returns>
-    /// The post object corresponding to the specified identifier, or null if no post
-    /// with the given identifier exists in the repository.
+    ///     The post object corresponding to the specified identifier, or null if no post
+    ///     with the given identifier exists in the repository.
     /// </returns>
     public Post? GetPostById(string id) //=> _postRepository.GetById(id);
     {
@@ -63,13 +63,13 @@ public class PostService : IPostService
         {
             _logger.LogError(ex, "Error occurred while retrieving ALL posts");
             throw;
-        } 
+        }
     }
 
     /// Creates a new post in the data repository.
     /// Logs the creation process and handles any exceptions that may occur during the operation.
     /// <param name="post">
-    /// The post object containing details such as title, description, body, author, tags, and timestamps.
+    ///     The post object containing details such as title, description, body, author, tags, and timestamps.
     /// </param>
     public void CreatePost(Post post)
     {
@@ -90,10 +90,10 @@ public class PostService : IPostService
     /// Updates an existing post in the data repository.
     /// Logs any errors that occur during the update process.
     /// <param name="post">
-    /// The post object containing updated information. The post must already exist in the repository.
+    ///     The post object containing updated information. The post must already exist in the repository.
     /// </param>
     /// <exception cref="Exception">
-    /// Thrown if an error occurs while updating the post in the repository.
+    ///     Thrown if an error occurs while updating the post in the repository.
     /// </exception>
     public void UpdatePost(Post post)
     {
@@ -111,7 +111,7 @@ public class PostService : IPostService
     /// Deletes a post identified by its unique identifier from the data repository.
     /// Handles any exceptions that may occur during the deletion process and logs relevant information.
     /// <param name="id">
-    /// The unique identifier of the post to delete.
+    ///     The unique identifier of the post to delete.
     /// </param>
     public void DeletePost(string id)
     {
@@ -121,7 +121,8 @@ public class PostService : IPostService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error occurred while deleting post: {ex.Message}"); throw;
+            _logger.LogError($"Error occurred while deleting post: {ex.Message}");
+            throw;
         }
     }
 }
