@@ -22,14 +22,14 @@ public class PostService : IPostService
     ///     A collection of all posts available in the data repository as an IEnumerable of Post objects.
     ///     If no posts are available, an empty collection is returned.
     /// </returns>
-    public IEnumerable<Post> GetAllPosts() //=> _postRepository.GetAll();
+    public async Task<IEnumerable<Post>> GetAllPosts() //=> _postRepository.GetAll();
     {
         _logger.LogInformation("Retrieving all posts");
 
         try
         {
-            var posts = _postRepository.GetAll();
-            _logger.LogInformation($"Retrieved {posts.Count()} posts");
+            var posts = await _postRepository.GetAll() as Post[] ?? [];
+            _logger.LogInformation($"Retrieved {posts.Length} posts");
             return posts;
         }
         catch (Exception ex)

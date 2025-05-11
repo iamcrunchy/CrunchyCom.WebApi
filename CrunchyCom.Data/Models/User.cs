@@ -11,7 +11,7 @@ public class User
 
     public string Email { get; set; } = null!;
     public string UserName { get; set; } = null!;
-    public string PasswordHash { get; set; }
+    public string? PasswordHash { get; set; }
     public string? Picture { get; set; }
     public string Provider { get; set; } = null!; // "Google", etc.
     public string ProviderId { get; set; } = null!;

@@ -29,14 +29,14 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var user = await _userRepository.GetByUserNameAsync("admin");
+        var user = await _userRepository.GetByUserNameAsync(request.Email);
 
         if (user == null) return Unauthorized();
 
         if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash)) return Unauthorized();
 
         var token = GenerateJwtToken(user.UserName);
-        return Ok(new { Token = token });
+        return Ok(new { Token = token, UserName = user.UserName });
     }
 
     [HttpPost("register-admin")]

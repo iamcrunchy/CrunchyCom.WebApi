@@ -19,6 +19,7 @@ public class PostController : ControllerBase
     [HttpGet]
     public IActionResult GetAllPosts()
     {
+        var posts = _postService.GetAllPosts();
         return Ok(_postService.GetAllPosts());
     }
 

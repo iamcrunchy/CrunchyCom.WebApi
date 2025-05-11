@@ -4,7 +4,7 @@ namespace CrunchyCom.Business.Services;
 
 public interface IPostService
 {
-    IEnumerable<Post> GetAllPosts();
+    Task<IEnumerable<Post>> GetAllPosts();
     Post? GetPostById(string id);
     void CreatePost(Post post);
     void UpdatePost(Post post);

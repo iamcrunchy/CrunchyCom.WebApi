@@ -14,7 +14,7 @@ public class UserService : IUserService
 
     public IEnumerable<User> GetAllUsers()
     {
-        return _userRepository.GetAll();
+        throw new NotImplementedException();
     }
 
     public User GetUserById(string id)

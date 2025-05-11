@@ -37,7 +37,7 @@ public class UserRepository : MongoRepository<User>
     /// </returns>
     public async Task<User?> GetByUserNameAsync(string userName)
     {
-        var filter = Builders<User>.Filter.Eq(u => u.UserName, userName);
+        var filter = Builders<User>.Filter.Eq(u => u.Email, userName);
         return await _collection.Find(filter).FirstOrDefaultAsync();
     }
 

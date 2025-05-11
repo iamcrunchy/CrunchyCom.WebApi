@@ -23,7 +23,7 @@ public class MongoRepository<T> : IRepository<T> where T : class
     /// <typeparam name="T">
     ///     The type of the entities managed by the repository. Must be a reference type.
     /// </typeparam>
-    public MongoRepository(MongoDbSettings database,
+    protected MongoRepository(MongoDbSettings database,
         string collectionName,
         ILogger<MongoRepository<T>> logger)
     {
@@ -39,9 +39,9 @@ public class MongoRepository<T> : IRepository<T> where T : class
     /// <returns>
     ///     An enumerable collection of entities of type T from the MongoDB collection.
     /// </returns>
-    public IEnumerable<T> GetAll()
+    public async Task<IEnumerable<T>> GetAll()
     {
-        return _collection.Find(_ => true).ToList();
+        return await _collection.Find(_ => true).ToListAsync();
     }
 
     /// <summary>

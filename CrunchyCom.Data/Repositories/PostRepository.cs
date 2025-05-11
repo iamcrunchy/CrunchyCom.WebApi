@@ -21,9 +21,31 @@ public class PostRepository : IRepository<Post>
     }
 
     // ... rest of repository implementation
-    public IEnumerable<Post> GetAll()
+    public async Task<IEnumerable<Post>> GetAll()
     {
-        throw new NotImplementedException();
+        _logger.LogInformation("Retrieving all posts");
+        try
+        {
+            var posts = await _collection.Find(_ => true)
+                .Project(p => new Post()
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Author = p.Author,
+                    PublishedDate = p.PublishedDate,
+                    Tags = p.Tags
+                    
+                })
+                .ToListAsync();
+            _logger.LogInformation($"Retrieved {posts.Count} posts");
+            return posts;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while retrieving ALL posts");
+            throw;
+        }
     }
 
     public Post GetById(string id)
